@@ -15,7 +15,7 @@ export default function Navbar () {
                                     e<span className="text-accent">.Track</span>
                                 </div>
                                 <div className="md:flex hidden">
-                                    <Link href="" className="btn">Mes Budgets</Link>
+                                    <Link href="/budgets" className="btn">Mes Budgets</Link>
                                     <Link href="" className="btn mx-4">Tableau de bord</Link>
                                     <Link href="" className="btn">Mes Transactions</Link>
                                 </div>
