@@ -2,9 +2,16 @@
 
 import {UserButton, useUser} from "@clerk/nextjs"
 import Link from "next/link"
+import {useEffect} from "react";
+import {checkAndAddUser} from "@/app/actions";
 
 export default function Navbar () {
     const {isLoaded, isSignedIn, user} = useUser()
+    useEffect(() => {
+        if (user?.primaryEmailAddress?.emailAddress) {
+            checkAndAddUser(user?.primaryEmailAddress?.emailAddress)
+        }
+    }, [user])
     return(
         <div className="bg-base-200/30 px-5 md:px-[10%] py-4">
             {isLoaded && (

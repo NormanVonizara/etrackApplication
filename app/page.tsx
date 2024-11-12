@@ -1,10 +1,9 @@
 import Link from "next/link";
-import Navbar from "@/app/components/Navbar";
+import {Wrapper} from "@/app/components/Wrapper";
 
 export default function Home() {
     return (
-        <>
-            <Navbar/>
+        <Wrapper>
             <div>
                 <div className="flex items-center justify-center flex-col py-10 w-full">
                     <div>
@@ -25,6 +24,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-        </>
+        </Wrapper>
     );
 }
