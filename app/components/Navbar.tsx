@@ -9,7 +9,7 @@ export default function Navbar () {
     const {isLoaded, isSignedIn, user} = useUser()
     useEffect(() => {
         if (user?.primaryEmailAddress?.emailAddress) {
-            checkAndAddUser(user?.primaryEmailAddress?.emailAddress)
+            checkAndAddUser(user?.primaryEmailAddress?.emailAddress as string)
         }
     }, [user])
     return(
@@ -29,7 +29,7 @@ export default function Navbar () {
                                 <UserButton/>
                             </div>
                             <div className="md:hidden flex mt-4 justify-center">
-                                <Link href="" className="btn btn-sm">Mes Budgets</Link>
+                                <Link href="/budgets" className="btn btn-sm">Mes Budgets</Link>
                                 <Link href="" className="btn btn-sm mx-4">Tableau de bord</Link>
                                 <Link href="" className="btn btn-sm">Mes Transactions</Link>
                             </div>
