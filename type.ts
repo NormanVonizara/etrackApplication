@@ -2,14 +2,14 @@ export interface Budget {
     id: string;
     createdAt: Date;
     name: string;
-    amount: number;
+    amount: string;
     emoji: string | null;
     transactions?: Transaction[];
 }
 
 export interface Transaction {
     id: string;
-    amount: number;
+    amount: string;
     emoji: string | null;
     description: string
     createdAt: Date;

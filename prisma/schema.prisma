@@ -20,7 +20,7 @@ model User {
 model Budget {
   id           String       @id @default(uuid())
   name         String
-  amount       String
+  amount       Float
   userId       String
   user         User         @relation(fields: [userId], references: [id])
   emoji        String?

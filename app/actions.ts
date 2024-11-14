@@ -20,7 +20,7 @@ export async function checkAndAddUser(email: string | undefined) {
     }
 }
 
-export async function addBudget (email:string, name:string, amount:string, selectedEmoji:string) {
+export async function addBudget(email: string, name: string, amount: number, selectedEmoji: string) {
     try {
         const user = await prisma.user.findUnique({
             where: {email}
@@ -32,7 +32,7 @@ export async function addBudget (email:string, name:string, amount:string, selec
             data: {
                 name,
                 amount,
-                emoji : selectedEmoji,
+                emoji: selectedEmoji,
                 userId: user.id
             }
         })
@@ -42,7 +42,7 @@ export async function addBudget (email:string, name:string, amount:string, selec
     }
 }
 
-export async function getBudget(email:string) {
+export async function getBudget(email: string) {
     try {
         const user = await prisma.user.findUnique({
             where: {email},
@@ -60,6 +60,67 @@ export async function getBudget(email:string) {
         return user.budgets
     } catch (error) {
         console.error("Erreur lors de la récupération des budgets", error)
+        throw error
+    }
+}
+
+export async function getTransactionsByBudgetId(budgetId: string) {
+    try {
+        const budget = await prisma.budget.findUnique({
+            where: {
+                id: budgetId
+            },
+            include: {
+                transactions: true
+            }
+        })
+        if (!budget) {
+            throw new Error("Budget non trouvé")
+        }
+        return budget
+    } catch (error) {
+        console.error("Erreur lors de la récupération du transaction : ", error)
+        throw error
+    }
+}
+
+export async function addTransactionToBudget(budgetId: string, amount: number, description: string) {
+    try {
+        const budget = await prisma.budget.findUnique({
+            where: {
+                id: budgetId
+            },
+            include: {
+                transactions: true
+            }
+        })
+
+        if (!budget) {
+            throw new Error("Budget non trouvé")
+        }
+
+        const totalTransactions = budget.transactions.reduce((sum, transaction) => {
+            return sum + transaction.amount
+        }, 0)
+        const totalNewTransaction = totalTransactions + amount
+        if (totalNewTransaction > budget.amount) {
+            throw new Error("Le montant total des transactions dépasse le montant du budget .")
+        }
+        const newTransaction = await prisma.transaction.create({
+            data: {
+                amount,
+                description,
+                emoji: budget.emoji,
+                budget: {
+                    connect: {
+                        id: budget.id
+                    }
+                }
+            }
+        })
+
+    } catch (error) {
+        console.error("Erreur lors de l'ajout de la transaction :", error)
         throw error
     }
 }

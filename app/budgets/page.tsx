@@ -30,10 +30,14 @@ export default function Page() {
     }
     const handleAddBudget = async () => {
         try {
+            const amount = parseFloat(budgetAmount);
+            if (isNaN(amount) || amount <= 0) {
+                throw new Error("Le montant doit être un nombre positif.");
+            }
             await addBudget(
                 user?.primaryEmailAddress?.emailAddress as string,
                 budgetName,
-                budgetAmount,
+                amount,
                 selectedEmoji
             )
             fetchBudgets()
@@ -116,7 +120,7 @@ export default function Page() {
             </dialog>
             <ul className="grid md:grid-cols-3 gap-4 my-5">
                 {budgets.map((budget) => (
-                    <Link href="" key={budget.id}>
+                    <Link href={`/manage/${budget.id}`} key={budget.id}>
                         <BudgetItem budget={budget} enableHover={1}/>
                     </Link>
                 ))}

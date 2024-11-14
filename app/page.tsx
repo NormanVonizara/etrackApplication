@@ -1,5 +1,7 @@
 import Link from "next/link";
 import {Wrapper} from "@/app/components/Wrapper";
+import BudgetItem from "@/app/components/budgetItem";
+import budgets from "@/app/data";
 
 export default function Home() {
     return (
@@ -24,6 +26,13 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <ul className="grid md:grid-cols-3 gap-4 my-5">
+                {budgets.map((budget) => (
+                    <Link href={`/manage/${budget.id}`} key={budget.id}>
+                        <BudgetItem budget={budget} enableHover={1}/>
+                    </Link>
+                ))}
+            </ul>
         </Wrapper>
     );
 }
