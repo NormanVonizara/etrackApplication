@@ -1,13 +1,15 @@
 "use client"
 
-import {useEffect, useState} from "react";
-import {addTransactionToBudget, getTransactionsByBudgetId} from "@/app/actions";
+import {useEffect, useState} from "react"
+import {addTransactionToBudget, deleteBudget, deleteTransaction, getTransactionsByBudgetId} from "@/app/actions"
 import {Budget} from "@/type";
-import BudgetItem from "@/app/components/budgetItem";
-import {Wrapper} from "@/app/components/Wrapper";
-import {Send, Trash2} from "lucide-react";
-import CurrencyInput from "react-currency-input-field";
-import {toast} from "react-toastify";
+import BudgetItem from "@/app/components/budgetItem"
+import {Wrapper} from "@/app/components/Wrapper"
+import {Send, Trash2} from "lucide-react"
+import CurrencyInput from "react-currency-input-field"
+import {toast} from "react-toastify"
+import Swal from "sweetalert2"
+import {redirect} from "next/navigation"
 
 export default function Page({params}: { params: Promise<{ budgetId: string }> }) {
     const [budgetId, setBudgetId] = useState<string>("")
@@ -57,13 +59,61 @@ export default function Page({params}: { params: Promise<{ budgetId: string }> }
         }
         getId()
     }, [params])
+    const handleDeleteBudget = async () => {
+        Swal.fire({
+            title: 'Confirmation',
+            text: 'Êtes vous sûr de vouloir supprimer ce budget et toutes ses transactions associées ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Oui, supprimer',
+            cancelButtonText: 'Non, annuler',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    deleteBudget(budgetId)
+                    Swal.fire('Supprimé!', 'L\'élément a été supprimé.', 'success')
+                    redirect("/budgets")
+                } catch (error) {
+                    console.error("Erreur lors de la suppression du budget : ", error)
+                    throw error
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire('Annulé', 'L\'élément n\'a pas été supprimé.', 'info')
+            }
+        });
+    }
+    const handleDeleteTransaction = async (transactionId: string) => {
+        Swal.fire({
+            title: 'Confirmation',
+            text: 'Êtes vous sûr de vouloir supprimer cette transaction ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Oui, supprimer',
+            cancelButtonText: 'Non, annuler',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    deleteTransaction(transactionId)
+                    Swal.fire('Supprimé!', 'L\'élément a été supprimé.', 'success')
+                    fetchBudgetData(budgetId)
+                } catch (error) {
+                    console.error("Erreur lors de la suppression du budget : ", error)
+                    throw error
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire('Annulé', 'L\'élément n\'a pas été supprimé.', 'info')
+            }
+        });
+    }
     return (
         <Wrapper>
             {budget &&
 				<div className="flex md:flex-row flex-col">
 					<div className="md:w-1/3 w-full">
 						<div className="flex justify-end mb-4">
-							<button className="btn btn-error rounded-full">
+							<button onClick={() => handleDeleteBudget()} className="btn btn-error rounded-full">
 								<Trash2/>
 							</button>
 						</div>
@@ -125,7 +175,7 @@ export default function Page({params}: { params: Promise<{ budgetId: string }> }
                                                             second: "2-digit"
                                                         })}</td>
                                                         <td>
-                                                            <button className="btn btn-sm">
+                                                            <button onClick={() => handleDeleteTransaction(transaction.id)} className="btn btn-sm">
                                                                 <Trash2 className="w-4"/>
                                                             </button>
                                                         </td>
