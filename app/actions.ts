@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma"
-import {Budget, Transaction} from "@/type";
+import {Budget, Transaction} from "@/type"
 
 export async function checkAndAddUser(email: string | undefined) {
     if (!email) return
@@ -163,7 +163,7 @@ export async function deleteTransaction(transactionId: string) {
     }
 }
 
-export async function getTransactionByEmailAndPeriod(email: string, period: string) {
+export async function getTransactionsByEmailAndPeriod(email: string, period: string) {
     try {
         const now = new Date()
         let dateLimit
@@ -182,12 +182,12 @@ export async function getTransactionByEmailAndPeriod(email: string, period: stri
                 break
             case "last365":
                 dateLimit = new Date()
-                dateLimit.setDate(now.getFullYear() - 1)
+                dateLimit.setFullYear(now.getFullYear() - 1)
                 break
             default:
                 throw new Error("Période invalide .")
         }
-        const user = prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {email},
             include: {
                 budgets: {
@@ -209,12 +209,13 @@ export async function getTransactionByEmailAndPeriod(email: string, period: stri
         if (!user) {
             throw new Error("Utilisateur non trouvé")
         }
-        const transactions = user.budgets.flatMap((budget) => {
-            budget.transactions.map((transaction) => ({
+        const transactions = user.budgets.flatMap(budget =>
+            budget.transactions.map(transaction => ({
                 ...transaction,
-                budgetName: budget.name
+                budgetName: budget.name,
+                budgetId: budget.id
             }))
-        })
+        )
         return transactions
     } catch (error) {
         console.error("Erreur lors de la récupération des transactions :", error)
