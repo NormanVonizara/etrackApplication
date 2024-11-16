@@ -25,7 +25,7 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(true)
     const [totalCount, setTotalCount] = useState<number | null>(null)
     const [reachedBudgetsRatio, setReachedBudgetsRatio] = useState<string | null>(null)
-    const [budgetData, setBudgetData] = useState<[]>([])
+    const [budgetData, setBudgetData] = useState<Budget[]>([])
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [budgets, setBudgets] = useState<Budget[]>([])
 
