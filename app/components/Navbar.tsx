@@ -23,14 +23,14 @@ export default function Navbar () {
                                 </div>
                                 <div className="md:flex hidden">
                                     <Link href="/budgets" className="btn">Mes Budgets</Link>
-                                    <Link href="" className="btn mx-4">Tableau de bord</Link>
+                                    <Link href="/dashboard" className="btn mx-4">Tableau de bord</Link>
                                     <Link href="/transactions" className="btn">Mes Transactions</Link>
                                 </div>
                                 <UserButton/>
                             </div>
                             <div className="md:hidden flex mt-4 justify-center">
                                 <Link href="/budgets" className="btn btn-sm">Mes Budgets</Link>
-                                <Link href="" className="btn btn-sm mx-4">Tableau de bord</Link>
+                                <Link href="/dashboard" className="btn btn-sm mx-4">Tableau de bord</Link>
                                 <Link href="/transactions" className="btn btn-sm">Mes Transactions</Link>
                             </div>
                     </>
