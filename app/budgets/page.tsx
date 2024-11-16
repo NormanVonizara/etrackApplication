@@ -79,7 +79,7 @@ export default function Page() {
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 className="font-bold text-lg">Création d'un Budget</h3>
+                    <h3 className="font-bold text-lg">Création d&apos;un Budget</h3>
                     <div className="w-full flex flex-col py-5">
                         <input
                             type="text"

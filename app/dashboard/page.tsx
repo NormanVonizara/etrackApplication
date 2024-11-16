@@ -12,7 +12,7 @@ import {
     getUserBudgetData
 } from '../actions'
 import {CircleDollarSign, Landmark, PiggyBank} from 'lucide-react'
-import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts'
+import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis} from 'recharts'
 import {Budget, Transaction} from '@/type'
 import Link from 'next/link'
 import TransactionItem from "@/app/components/transactionItem"

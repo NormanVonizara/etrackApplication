@@ -41,7 +41,7 @@ export default function Navbar () {
                         </div>
                         <div className="flex justify-center">
                             <Link href="/sign-in" className="btn btn-sm">Se connecter</Link>
-                            <Link href="/sign-up" className="btn btn-sm btn-accent mx-4">S'inscrire</Link>
+                            <Link href="/sign-up" className="btn btn-sm btn-accent mx-4">S&apos;inscrire</Link>
                         </div>
                     </div>
                 ))

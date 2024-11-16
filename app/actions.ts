@@ -1,7 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma"
-import {Budget, Transaction} from "@/type"
 
 export async function checkAndAddUser(email: string | undefined) {
     if (!email) return
@@ -107,7 +106,7 @@ export async function addTransactionToBudget(budgetId: string, amount: number, d
         if (totalNewTransaction > budget.amount) {
             throw new Error("Le montant total des transactions dépasse le montant du budget .")
         }
-        const newTransaction = await prisma.transaction.create({
+        await prisma.transaction.create({
             data: {
                 amount,
                 description,

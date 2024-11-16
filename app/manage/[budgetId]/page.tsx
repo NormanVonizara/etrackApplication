@@ -42,7 +42,7 @@ export default function Page({params}: { params: Promise<{ budgetId: string }> }
             if (isNaN(amountNumber) || amountNumber <= 0) {
                 throw new Error("Le montant doit être un nombre positif.");
             }
-            const newTransaction = await addTransactionToBudget(budgetId, amountNumber, description)
+            await addTransactionToBudget(budgetId, amountNumber, description)
             toast.success("Transaction ajoutée avec succès")
             fetchBudgetData(budgetId)
             setDescription("")

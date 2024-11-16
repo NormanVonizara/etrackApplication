@@ -5,7 +5,6 @@ import {useUser} from "@clerk/nextjs"
 import {useEffect, useState} from "react"
 import {Transaction} from "@/type"
 import {getTransactionsByEmailAndPeriod} from "@/app/actions"
-import {allowedDisplayValues} from "next/dist/compiled/@next/font/dist/constants";
 import TransactionItem from "@/app/components/transactionItem";
 
 export default function Page () {

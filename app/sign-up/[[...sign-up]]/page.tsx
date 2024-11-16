@@ -1,4 +1,4 @@
-import {SignIn, SignUp} from "@clerk/nextjs";
+import {SignUp} from "@clerk/nextjs";
 
 export default function Page() {
     return (
@@ -33,7 +33,7 @@ export default function Page() {
 
                         <p className="mt-4 leading-relaxed text-white/90">
                             Bienvenue chez eTrack ! Nous sommes ravis de vous voir faire partie de notre communauté.
-                            N'hésitez pas à découvrir, interagir et collaborer avec nous pour créer quelque chose de
+                            N&apos;hésitez pas à découvrir, interagir et collaborer avec nous pour créer quelque chose de
                             merveilleux.
                         </p>
                     </div>
@@ -68,7 +68,7 @@ export default function Page() {
 
                             <p className="mt-4 leading-relaxed text-gray-500">
                                 Bienvenue chez eTrack ! Nous sommes ravis de vous voir faire partie de notre communauté.
-                                N'hésitez pas à découvrir, interagir et collaborer avec nous pour créer quelque chose de
+                                N&apos;hésitez pas à découvrir, interagir et collaborer avec nous pour créer quelque chose de
                                 merveilleux.
                             </p>
                         </div>
